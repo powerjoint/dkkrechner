@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kopenhagen - Margret & Frank</title>
+<style>
+    :root{
+        --dk-red:#C8102E;
+        --sea:#2E86AB;
+        --sand:#F7F3E9;
+        --harbor:#0E4D64;
+        --house1:#F4A261;
+        --house2:#E76F51;
+        --house3:#2A9D8F;
+        --house4:#E9C46A;
+    }
+
+    *{
+        box-sizing:border-box;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    body{
+        margin:0;
+        min-height:100vh;
+        background:
+            linear-gradient(to bottom, #8ED0F5 0%, #DDF3FF 35%, #7CC6E6 36%, #4CA3C7 100%);
+        overflow-x:hidden;
+        color:#123;
+    }
+
+    .waves{
+        position:fixed;
+        bottom:0;
+        left:0;
+        width:100%;
+        height:180px;
+        background:
+            radial-gradient(circle at 20px 20px, rgba(255,255,255,.3) 10px, transparent 11px) repeat-x;
+        background-size:80px 40px;
+        opacity:.25;
+        animation:wave 12s linear infinite;
+    }
+
+    @keyframes wave{
+        from{background-position-x:0;}
+        to{background-position-x:800px;}
+    }
+
+    .houses{
+        position:fixed;
+        bottom:120px;
+        left:0;
+        width:100%;
+        display:flex;
+        align-items:flex-end;
+        justify-content:center;
+        gap:10px;
+        z-index:0;
+        opacity:.9;
+    }
+
+    .house{
+        width:80px;
+        border-radius:4px 4px 0 0;
+        position:relative;
+    }
+
+    .house::before{
+        content:"";
+        position:absolute;
+        top:-25px;
+        left:0;
+        border-left:40px solid transparent;
+        border-right:40px solid transparent;
+        border-bottom:25px solid #444;
+    }
+
+    .h1{height:120px;background:var(--house1);}
+    .h2{height:150px;background:var(--house2);}
+    .h3{height:100px;background:var(--house3);}
+    .h4{height:140px;background:var(--house4);}
+
+    .container{
+        position:relative;
+        z-index:2;
+        max-width:520px;
+        margin:30px auto;
+        padding:20px;
+    }
+
+    .card{
+        background:rgba(255,255,255,.93);
+        border-radius:24px;
+        padding:28px;
+        box-shadow:0 10px 30px rgba(0,0,0,.2);
+        backdrop-filter: blur(6px);
+    }
+
+    .flag{
+        width:90px;
+        height:65px;
+        background:var(--dk-red);
+        margin:0 auto 20px;
+        position:relative;
+        border-radius:8px;
+        box-shadow:0 4px 10px rgba(0,0,0,.2);
+    }
+
+    .flag::before{
+        content:"";
+        position:absolute;
+        left:28px;
+        top:0;
+        width:10px;
+        height:100%;
+        background:white;
+    }
+
+    .flag::after{
+        content:"";
+        position:absolute;
+        left:0;
+        top:27px;
+        width:100%;
+        height:10px;
+        background:white;
+    }
+
+    h1{
+        text-align:center;
+        color:var(--harbor);
+        margin-top:0;
+        font-size:2rem;
+    }
+
+    .subtitle{
+        text-align:center;
+        margin-bottom:25px;
+        color:#345;
+    }
+
+    .switch{
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        margin-bottom:20px;
+    }
+
+    .switch button{
+        border:none;
+        padding:12px 18px;
+        border-radius:12px;
+        font-size:1rem;
+        cursor:pointer;
+        transition:.2s;
+        background:#ddd;
+    }
+
+    .switch button.active{
+        background:var(--dk-red);
+        color:white;
+        transform:scale(1.03);
+    }
+
+    .input-area{
+        margin-bottom:25px;
+    }
+
+    input{
+        width:100%;
+        padding:18px;
+        font-size:2rem;
+        border-radius:18px;
+        border:2px solid #cfd8dc;
+        text-align:center;
+        outline:none;
+    }
+
+    .result{
+        margin-top:18px;
+        text-align:center;
+        font-size:2rem;
+        font-weight:bold;
+        color:var(--harbor);
+    }
+
+    .rate{
+        text-align:center;
+        margin-top:14px;
+        color:#456;
+        line-height:1.6;
+        font-size:0.95rem;
+    }
+
+    .quick{
+        margin-top:28px;
+    }
+
+    .quick h3{
+        text-align:center;
+        margin-bottom:14px;
+        color:var(--harbor);
+    }
+
+    .notes{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:12px;
+    }
+
+    .note{
+        width:90px;
+        height:52px;
+        border-radius:10px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        font-weight:bold;
+        color:#123;
+        box-shadow:0 4px 10px rgba(0,0,0,.15);
+        transition:.15s;
+        border:2px solid rgba(255,255,255,.6);
+    }
+
+    .note:hover{
+        transform:translateY(-4px) scale(1.05);
+    }
+
+    .n1{background:#A8DADC;}
+    .n2{background:#F1FA8C;}
+    .n3{background:#FFD6A5;}
+    .n4{background:#FFADAD;}
+    .n5{background:#BDB2FF;}
+    .n6{background:#CAFFBF;}
+
+    .footer{
+        text-align:center;
+        margin-top:24px;
+        color:#567;
+        font-size:.9rem;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="houses">
+    <div class="house h1"></div>
+    <div class="house h2"></div>
+    <div class="house h3"></div>
+    <div class="house h4"></div>
+    <div class="house h2"></div>
+    <div class="house h1"></div>
+</div>
+
+<div class="waves"></div>
+
+<div class="container">
+    <div class="card">
+
+        <div class="flag"></div>
+
+        <h1>Kopenhagen - Margret & Frank</h1>
+
+        <div class="subtitle">
+            🇩🇰 Urlaubskasse für Dänemark
+        </div>
+
+        <div class="switch">
+            <button id="dkkBtn" class="active">DKK → EUR</button>
+            <button id="eurBtn">EUR → DKK</button>
+        </div>
+
+        <div class="input-area">
+            <input type="number" id="amount" placeholder="Betrag eingeben..." step="0.01">
+            <div class="result" id="result">0,00 €</div>
+        </div>
+
+        <div class="rate" id="rateInfo"></div>
+
+        <div class="quick">
+            <h3>Schnellauswahl</h3>
+            <div class="notes" id="notes"></div>
+        </div>
+
+        <div class="footer">
+            Nyhavn • Hygge • Smørrebrød • Meer 🌊
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const RATE = 7.46;
+    let mode = "DKK_TO_EUR";
+
+    const amountInput = document.getElementById("amount");
+    const result = document.getElementById("result");
+    const rateInfo = document.getElementById("rateInfo");
+    const notesContainer = document.getElementById("notes");
+
+    const dkkBtn = document.getElementById("dkkBtn");
+    const eurBtn = document.getElementById("eurBtn");
+
+    const dkkNotes = [20, 50, 100, 200, 500, 1000];
+    const eurNotes = [5, 10, 20, 50, 100, 200];
+
+    function format(value){
+        return value.toLocaleString("de-DE", {
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        });
+    }
+
+    function updateRateInfo(){
+        rateInfo.innerHTML = `
+            1 € = <strong>${format(RATE)} DKK</strong><br>
+            1 DKK = <strong>${format(1 / RATE)} €</strong>
+        `;
+    }
+
+    function calculate(){
+        let value = parseFloat(amountInput.value);
+
+        if(isNaN(value)){
+            result.innerHTML = "0,00";
+            return;
+        }
+
+        if(mode === "DKK_TO_EUR"){
+            let eur = value / RATE;
+            result.innerHTML = `${format(eur)} €`;
+        } else {
+            let dkk = value * RATE;
+            result.innerHTML = `${format(dkk)} DKK`;
+        }
+    }
+
+    function createNotes(){
+        notesContainer.innerHTML = "";
+
+        const notes = mode === "DKK_TO_EUR" ? dkkNotes : eurNotes;
+        const classes = ["n1","n2","n3","n4","n5","n6"];
+
+        notes.forEach((note,index)=>{
+            const div = document.createElement("div");
+            div.className = `note ${classes[index % classes.length]}`;
+            div.innerHTML = `${note} ${mode === "DKK_TO_EUR" ? "DKK" : "€"}`;
+
+            div.addEventListener("click", ()=>{
+                amountInput.value = note;
+                calculate();
+            });
+
+            notesContainer.appendChild(div);
+        });
+    }
+
+    dkkBtn.addEventListener("click", ()=>{
+        mode = "DKK_TO_EUR";
+        dkkBtn.classList.add("active");
+        eurBtn.classList.remove("active");
+        amountInput.placeholder = "DKK eingeben...";
+        amountInput.value = "";
+        result.innerHTML = "0,00 €";
+        createNotes();
+    });
+
+    eurBtn.addEventListener("click", ()=>{
+        mode = "EUR_TO_DKK";
+        eurBtn.classList.add("active");
+        dkkBtn.classList.remove("active");
+        amountInput.placeholder = "Euro eingeben...";
+        amountInput.value = "";
+        result.innerHTML = "0,00 DKK";
+        createNotes();
+    });
+
+    amountInput.addEventListener("input", calculate);
+
+    updateRateInfo();
+    createNotes();
+</script>
+
+</body>
+</html>
