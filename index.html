@@ -1,0 +1,186 @@
+
+<h2 class="sr-only">Währungsrechner DKK/EUR für Kopenhagen 2026 – Margret & Frank</h2>
+<style>
+  .kph-wrap { padding: 1.5rem 0; }
+  .kph-header { text-align: center; margin-bottom: 1.5rem; }
+  .kph-title { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 4px; letter-spacing: 0.02em; }
+  .kph-subtitle { font-size: 14px; color: var(--color-text-secondary); margin: 0; }
+  .kph-divider { width: 48px; height: 2px; background: #185FA5; margin: 10px auto 0; border-radius: 2px; }
+  .kph-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin-bottom: 1rem; }
+  .kph-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: end; margin-bottom: 1rem; }
+  .kph-field { display: flex; flex-direction: column; gap: 6px; }
+  .kph-label { font-size: 13px; color: var(--color-text-secondary); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+  .kph-flag { font-size: 22px; display: flex; align-items: center; justify-content: center; padding-bottom: 4px; }
+  .kph-input-wrap { position: relative; }
+  .kph-input-wrap input { width: 100%; box-sizing: border-box; font-size: 22px; font-weight: 500; padding: 10px 14px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); }
+  .kph-currency { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; text-align: center; }
+  .kph-swap { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s; margin-bottom: 4px; }
+  .kph-swap:hover { background: var(--color-background-tertiary); }
+  .kph-rate-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; display: flex; align-items: center; gap: 10px; }
+  .kph-rate-dot { width: 8px; height: 8px; background: #1D9E75; border-radius: 50%; flex-shrink: 0; }
+  .kph-rate-text { font-size: 13px; color: var(--color-text-secondary); }
+  .kph-rate-val { font-weight: 500; color: var(--color-text-primary); }
+  .kph-tips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 1rem; }
+  .kph-tip { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+  .kph-tip-label { font-size: 11px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+  .kph-tip-val { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+  .kph-tip-sub { font-size: 12px; color: var(--color-text-secondary); }
+  .kph-anchor { text-align: center; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 0.5px solid var(--color-border-tertiary); }
+  .kph-anchor-label { font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 8px; }
+  .kph-anchors { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .kph-anchor-btn { font-size: 13px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 5px 10px; cursor: pointer; color: var(--color-text-secondary); transition: border-color 0.15s; }
+  .kph-anchor-btn:hover { border-color: var(--color-border-primary); color: var(--color-text-primary); }
+  .kph-wave { text-align: center; font-size: 11px; color: var(--color-text-tertiary); margin-top: 1rem; letter-spacing: 0.08em; }
+</style>
+
+<div class="kph-wrap">
+  <div class="kph-header">
+    <p class="kph-title">Kopenhagen 2026</p>
+    <p class="kph-subtitle">Margret &amp; Frank</p>
+    <div class="kph-divider"></div>
+  </div>
+
+  <div class="kph-card">
+    <div class="kph-row">
+      <div class="kph-field">
+        <span class="kph-label" id="label-from">DKK</span>
+        <div class="kph-input-wrap">
+          <input type="number" id="input-from" value="100" min="0" step="any" aria-label="Betrag eingeben" />
+        </div>
+        <span class="kph-currency" id="name-from">Dänische Krone</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:22px">
+        <button class="kph-swap" id="swap-btn" aria-label="Währungen tauschen">
+          <i class="ti ti-switch-horizontal" style="font-size:18px;color:var(--color-text-secondary)" aria-hidden="true"></i>
+        </button>
+        <span style="font-size:11px;color:var(--color-text-tertiary)">tauschen</span>
+      </div>
+
+      <div class="kph-field">
+        <span class="kph-label" id="label-to">EUR</span>
+        <div class="kph-input-wrap">
+          <input type="number" id="input-to" readonly style="background:var(--color-background-tertiary);cursor:default" aria-label="Ergebnis" />
+        </div>
+        <span class="kph-currency" id="name-to">Euro</span>
+      </div>
+    </div>
+
+    <div class="kph-rate-card">
+      <div class="kph-rate-dot"></div>
+      <span class="kph-rate-text">Aktueller Kurs: <span class="kph-rate-val" id="rate-display">1 DKK = 0,1341 €</span></span>
+      <span style="font-size:11px;color:var(--color-text-tertiary);margin-left:auto" id="rate-time">live</span>
+    </div>
+  </div>
+
+  <div class="kph-tips">
+    <div class="kph-tip">
+      <div class="kph-tip-label">Kaffee</div>
+      <div class="kph-tip-val" id="tip-coffee">~4,02 €</div>
+      <div class="kph-tip-sub">≈ 30 DKK</div>
+    </div>
+    <div class="kph-tip">
+      <div class="kph-tip-label">Bier (0,5l)</div>
+      <div class="kph-tip-val" id="tip-beer">~5,36 €</div>
+      <div class="kph-tip-sub">≈ 40 DKK</div>
+    </div>
+    <div class="kph-tip">
+      <div class="kph-tip-label">Smørrebrød</div>
+      <div class="kph-tip-val" id="tip-smorrebrod">~13,41 €</div>
+      <div class="kph-tip-sub">≈ 100 DKK</div>
+    </div>
+    <div class="kph-tip">
+      <div class="kph-tip-label">Taxifahrt (5km)</div>
+      <div class="kph-tip-val" id="tip-taxi">~26,82 €</div>
+      <div class="kph-tip-sub">≈ 200 DKK</div>
+    </div>
+  </div>
+
+  <div class="kph-anchor">
+    <div class="kph-anchor-label">Schnellauswahl</div>
+    <div class="kph-anchors">
+      <button class="kph-anchor-btn" onclick="setAmount(50)">50</button>
+      <button class="kph-anchor-btn" onclick="setAmount(100)">100</button>
+      <button class="kph-anchor-btn" onclick="setAmount(200)">200</button>
+      <button class="kph-anchor-btn" onclick="setAmount(500)">500</button>
+      <button class="kph-anchor-btn" onclick="setAmount(1000)">1.000</button>
+    </div>
+  </div>
+
+  <div class="kph-wave">⚓ &nbsp; · &nbsp; ⛵ &nbsp; · &nbsp; ⚓</div>
+</div>
+
+<script>
+const RATE_DKK_EUR = 0.13408;
+let dkkToEur = true;
+let liveRate = RATE_DKK_EUR;
+
+function fmt(n) {
+  return n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function convert() {
+  const val = parseFloat(document.getElementById('input-from').value) || 0;
+  let result;
+  if (dkkToEur) {
+    result = val * liveRate;
+  } else {
+    result = val / liveRate;
+  }
+  document.getElementById('input-to').value = fmt(result);
+}
+
+function updateLabels() {
+  if (dkkToEur) {
+    document.getElementById('label-from').textContent = 'DKK';
+    document.getElementById('name-from').textContent = 'Dänische Krone';
+    document.getElementById('label-to').textContent = 'EUR';
+    document.getElementById('name-to').textContent = 'Euro';
+    document.getElementById('rate-display').textContent = `1 DKK = ${fmt(liveRate)} €`;
+  } else {
+    document.getElementById('label-from').textContent = 'EUR';
+    document.getElementById('name-from').textContent = 'Euro';
+    document.getElementById('label-to').textContent = 'DKK';
+    document.getElementById('name-to').textContent = 'Dänische Krone';
+    document.getElementById('rate-display').textContent = `1 € = ${fmt(1/liveRate)} DKK`;
+  }
+  updateTips();
+}
+
+function updateTips() {
+  document.getElementById('tip-coffee').textContent = '~' + fmt(30 * liveRate) + ' €';
+  document.getElementById('tip-beer').textContent = '~' + fmt(40 * liveRate) + ' €';
+  document.getElementById('tip-smorrebrod').textContent = '~' + fmt(100 * liveRate) + ' €';
+  document.getElementById('tip-taxi').textContent = '~' + fmt(200 * liveRate) + ' €';
+}
+
+function setAmount(val) {
+  document.getElementById('input-from').value = val;
+  convert();
+}
+
+document.getElementById('swap-btn').addEventListener('click', () => {
+  dkkToEur = !dkkToEur;
+  document.getElementById('input-from').value = '';
+  document.getElementById('input-to').value = '';
+  updateLabels();
+});
+
+document.getElementById('input-from').addEventListener('input', convert);
+
+async function fetchRate() {
+  try {
+    const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/dkk.json');
+    const data = await res.json();
+    if (data && data.dkk && data.dkk.eur) {
+      liveRate = data.dkk.eur;
+      const now = new Date();
+      document.getElementById('rate-time').textContent = now.toLocaleTimeString('de-DE', {hour:'2-digit',minute:'2-digit'});
+    }
+  } catch(e) {}
+  updateLabels();
+  convert();
+}
+
+fetchRate();
+</script>
