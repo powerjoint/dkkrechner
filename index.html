@@ -1,186 +1,390 @@
-
-<h2 class="sr-only">Währungsrechner DKK/EUR für Kopenhagen 2026 – Margret & Frank</h2>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kopenhagen - Margret & Frank</title>
 <style>
-  .kph-wrap { padding: 1.5rem 0; }
-  .kph-header { text-align: center; margin-bottom: 1.5rem; }
-  .kph-title { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 4px; letter-spacing: 0.02em; }
-  .kph-subtitle { font-size: 14px; color: var(--color-text-secondary); margin: 0; }
-  .kph-divider { width: 48px; height: 2px; background: #185FA5; margin: 10px auto 0; border-radius: 2px; }
-  .kph-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin-bottom: 1rem; }
-  .kph-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: end; margin-bottom: 1rem; }
-  .kph-field { display: flex; flex-direction: column; gap: 6px; }
-  .kph-label { font-size: 13px; color: var(--color-text-secondary); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
-  .kph-flag { font-size: 22px; display: flex; align-items: center; justify-content: center; padding-bottom: 4px; }
-  .kph-input-wrap { position: relative; }
-  .kph-input-wrap input { width: 100%; box-sizing: border-box; font-size: 22px; font-weight: 500; padding: 10px 14px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); }
-  .kph-currency { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; text-align: center; }
-  .kph-swap { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s; margin-bottom: 4px; }
-  .kph-swap:hover { background: var(--color-background-tertiary); }
-  .kph-rate-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; display: flex; align-items: center; gap: 10px; }
-  .kph-rate-dot { width: 8px; height: 8px; background: #1D9E75; border-radius: 50%; flex-shrink: 0; }
-  .kph-rate-text { font-size: 13px; color: var(--color-text-secondary); }
-  .kph-rate-val { font-weight: 500; color: var(--color-text-primary); }
-  .kph-tips { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 1rem; }
-  .kph-tip { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
-  .kph-tip-label { font-size: 11px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
-  .kph-tip-val { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
-  .kph-tip-sub { font-size: 12px; color: var(--color-text-secondary); }
-  .kph-anchor { text-align: center; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 0.5px solid var(--color-border-tertiary); }
-  .kph-anchor-label { font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 8px; }
-  .kph-anchors { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
-  .kph-anchor-btn { font-size: 13px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 5px 10px; cursor: pointer; color: var(--color-text-secondary); transition: border-color 0.15s; }
-  .kph-anchor-btn:hover { border-color: var(--color-border-primary); color: var(--color-text-primary); }
-  .kph-wave { text-align: center; font-size: 11px; color: var(--color-text-tertiary); margin-top: 1rem; letter-spacing: 0.08em; }
+    :root{
+        --dk-red:#C8102E;
+        --sea:#2E86AB;
+        --sand:#F7F3E9;
+        --harbor:#0E4D64;
+        --house1:#F4A261;
+        --house2:#E76F51;
+        --house3:#2A9D8F;
+        --house4:#E9C46A;
+    }
+
+    *{
+        box-sizing:border-box;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    body{
+        margin:0;
+        min-height:100vh;
+        background:
+            linear-gradient(to bottom, #8ED0F5 0%, #DDF3FF 35%, #7CC6E6 36%, #4CA3C7 100%);
+        overflow-x:hidden;
+        color:#123;
+    }
+
+    .waves{
+        position:fixed;
+        bottom:0;
+        left:0;
+        width:100%;
+        height:180px;
+        background:
+            radial-gradient(circle at 20px 20px, rgba(255,255,255,.3) 10px, transparent 11px) repeat-x;
+        background-size:80px 40px;
+        opacity:.25;
+        animation:wave 12s linear infinite;
+    }
+
+    @keyframes wave{
+        from{background-position-x:0;}
+        to{background-position-x:800px;}
+    }
+
+    .houses{
+        position:fixed;
+        bottom:120px;
+        left:0;
+        width:100%;
+        display:flex;
+        align-items:flex-end;
+        justify-content:center;
+        gap:10px;
+        z-index:0;
+        opacity:.9;
+    }
+
+    .house{
+        width:80px;
+        border-radius:4px 4px 0 0;
+        position:relative;
+    }
+
+    .house::before{
+        content:"";
+        position:absolute;
+        top:-25px;
+        left:0;
+        border-left:40px solid transparent;
+        border-right:40px solid transparent;
+        border-bottom:25px solid #444;
+    }
+
+    .h1{height:120px;background:var(--house1);}
+    .h2{height:150px;background:var(--house2);}
+    .h3{height:100px;background:var(--house3);}
+    .h4{height:140px;background:var(--house4);}
+
+    .container{
+        position:relative;
+        z-index:2;
+        max-width:520px;
+        margin:30px auto;
+        padding:20px;
+    }
+
+    .card{
+        background:rgba(255,255,255,.93);
+        border-radius:24px;
+        padding:28px;
+        box-shadow:0 10px 30px rgba(0,0,0,.2);
+        backdrop-filter: blur(6px);
+    }
+
+    .flag{
+        width:90px;
+        height:65px;
+        background:var(--dk-red);
+        margin:0 auto 20px;
+        position:relative;
+        border-radius:8px;
+        box-shadow:0 4px 10px rgba(0,0,0,.2);
+    }
+
+    .flag::before{
+        content:"";
+        position:absolute;
+        left:28px;
+        top:0;
+        width:10px;
+        height:100%;
+        background:white;
+    }
+
+    .flag::after{
+        content:"";
+        position:absolute;
+        left:0;
+        top:27px;
+        width:100%;
+        height:10px;
+        background:white;
+    }
+
+    h1{
+        text-align:center;
+        color:var(--harbor);
+        margin-top:0;
+        font-size:2rem;
+    }
+
+    .subtitle{
+        text-align:center;
+        margin-bottom:25px;
+        color:#345;
+    }
+
+    .switch{
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        margin-bottom:20px;
+    }
+
+    .switch button{
+        border:none;
+        padding:12px 18px;
+        border-radius:12px;
+        font-size:1rem;
+        cursor:pointer;
+        transition:.2s;
+        background:#ddd;
+    }
+
+    .switch button.active{
+        background:var(--dk-red);
+        color:white;
+        transform:scale(1.03);
+    }
+
+    .input-area{
+        margin-bottom:25px;
+    }
+
+    input{
+        width:100%;
+        padding:18px;
+        font-size:2rem;
+        border-radius:18px;
+        border:2px solid #cfd8dc;
+        text-align:center;
+        outline:none;
+    }
+
+    .result{
+        margin-top:18px;
+        text-align:center;
+        font-size:2rem;
+        font-weight:bold;
+        color:var(--harbor);
+    }
+
+    .rate{
+        text-align:center;
+        margin-top:14px;
+        color:#456;
+        line-height:1.6;
+        font-size:0.95rem;
+    }
+
+    .quick{
+        margin-top:28px;
+    }
+
+    .quick h3{
+        text-align:center;
+        margin-bottom:14px;
+        color:var(--harbor);
+    }
+
+    .notes{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:12px;
+    }
+
+    .note{
+        width:90px;
+        height:52px;
+        border-radius:10px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        font-weight:bold;
+        color:#123;
+        box-shadow:0 4px 10px rgba(0,0,0,.15);
+        transition:.15s;
+        border:2px solid rgba(255,255,255,.6);
+    }
+
+    .note:hover{
+        transform:translateY(-4px) scale(1.05);
+    }
+
+    .n1{background:#A8DADC;}
+    .n2{background:#F1FA8C;}
+    .n3{background:#FFD6A5;}
+    .n4{background:#FFADAD;}
+    .n5{background:#BDB2FF;}
+    .n6{background:#CAFFBF;}
+
+    .footer{
+        text-align:center;
+        margin-top:24px;
+        color:#567;
+        font-size:.9rem;
+    }
 </style>
+</head>
 
-<div class="kph-wrap">
-  <div class="kph-header">
-    <p class="kph-title">Kopenhagen 2026</p>
-    <p class="kph-subtitle">Margret &amp; Frank</p>
-    <div class="kph-divider"></div>
-  </div>
+<body>
 
-  <div class="kph-card">
-    <div class="kph-row">
-      <div class="kph-field">
-        <span class="kph-label" id="label-from">DKK</span>
-        <div class="kph-input-wrap">
-          <input type="number" id="input-from" value="100" min="0" step="any" aria-label="Betrag eingeben" />
+<div class="houses">
+    <div class="house h1"></div>
+    <div class="house h2"></div>
+    <div class="house h3"></div>
+    <div class="house h4"></div>
+    <div class="house h2"></div>
+    <div class="house h1"></div>
+</div>
+
+<div class="waves"></div>
+
+<div class="container">
+    <div class="card">
+
+        <div class="flag"></div>
+
+        <h1>Kopenhagen - Margret & Frank</h1>
+
+        <div class="subtitle">
+            🇩🇰 Urlaubskasse für Dänemark
         </div>
-        <span class="kph-currency" id="name-from">Dänische Krone</span>
-      </div>
 
-      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:22px">
-        <button class="kph-swap" id="swap-btn" aria-label="Währungen tauschen">
-          <i class="ti ti-switch-horizontal" style="font-size:18px;color:var(--color-text-secondary)" aria-hidden="true"></i>
-        </button>
-        <span style="font-size:11px;color:var(--color-text-tertiary)">tauschen</span>
-      </div>
-
-      <div class="kph-field">
-        <span class="kph-label" id="label-to">EUR</span>
-        <div class="kph-input-wrap">
-          <input type="number" id="input-to" readonly style="background:var(--color-background-tertiary);cursor:default" aria-label="Ergebnis" />
+        <div class="switch">
+            <button id="dkkBtn" class="active">DKK → EUR</button>
+            <button id="eurBtn">EUR → DKK</button>
         </div>
-        <span class="kph-currency" id="name-to">Euro</span>
-      </div>
-    </div>
 
-    <div class="kph-rate-card">
-      <div class="kph-rate-dot"></div>
-      <span class="kph-rate-text">Aktueller Kurs: <span class="kph-rate-val" id="rate-display">1 DKK = 0,1341 €</span></span>
-      <span style="font-size:11px;color:var(--color-text-tertiary);margin-left:auto" id="rate-time">live</span>
-    </div>
-  </div>
+        <div class="input-area">
+            <input type="number" id="amount" placeholder="Betrag eingeben..." step="0.01">
+            <div class="result" id="result">0,00 €</div>
+        </div>
 
-  <div class="kph-tips">
-    <div class="kph-tip">
-      <div class="kph-tip-label">Kaffee</div>
-      <div class="kph-tip-val" id="tip-coffee">~4,02 €</div>
-      <div class="kph-tip-sub">≈ 30 DKK</div>
-    </div>
-    <div class="kph-tip">
-      <div class="kph-tip-label">Bier (0,5l)</div>
-      <div class="kph-tip-val" id="tip-beer">~5,36 €</div>
-      <div class="kph-tip-sub">≈ 40 DKK</div>
-    </div>
-    <div class="kph-tip">
-      <div class="kph-tip-label">Smørrebrød</div>
-      <div class="kph-tip-val" id="tip-smorrebrod">~13,41 €</div>
-      <div class="kph-tip-sub">≈ 100 DKK</div>
-    </div>
-    <div class="kph-tip">
-      <div class="kph-tip-label">Taxifahrt (5km)</div>
-      <div class="kph-tip-val" id="tip-taxi">~26,82 €</div>
-      <div class="kph-tip-sub">≈ 200 DKK</div>
-    </div>
-  </div>
+        <div class="rate" id="rateInfo"></div>
 
-  <div class="kph-anchor">
-    <div class="kph-anchor-label">Schnellauswahl</div>
-    <div class="kph-anchors">
-      <button class="kph-anchor-btn" onclick="setAmount(50)">50</button>
-      <button class="kph-anchor-btn" onclick="setAmount(100)">100</button>
-      <button class="kph-anchor-btn" onclick="setAmount(200)">200</button>
-      <button class="kph-anchor-btn" onclick="setAmount(500)">500</button>
-      <button class="kph-anchor-btn" onclick="setAmount(1000)">1.000</button>
-    </div>
-  </div>
+        <div class="quick">
+            <h3>Schnellauswahl</h3>
+            <div class="notes" id="notes"></div>
+        </div>
 
-  <div class="kph-wave">⚓ &nbsp; · &nbsp; ⛵ &nbsp; · &nbsp; ⚓</div>
+        <div class="footer">
+            Nyhavn • Hygge • Smørrebrød • Meer 🌊
+        </div>
+
+    </div>
 </div>
 
 <script>
-const RATE_DKK_EUR = 0.13408;
-let dkkToEur = true;
-let liveRate = RATE_DKK_EUR;
+    const RATE = 7.46;
+    let mode = "DKK_TO_EUR";
 
-function fmt(n) {
-  return n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
+    const amountInput = document.getElementById("amount");
+    const result = document.getElementById("result");
+    const rateInfo = document.getElementById("rateInfo");
+    const notesContainer = document.getElementById("notes");
 
-function convert() {
-  const val = parseFloat(document.getElementById('input-from').value) || 0;
-  let result;
-  if (dkkToEur) {
-    result = val * liveRate;
-  } else {
-    result = val / liveRate;
-  }
-  document.getElementById('input-to').value = fmt(result);
-}
+    const dkkBtn = document.getElementById("dkkBtn");
+    const eurBtn = document.getElementById("eurBtn");
 
-function updateLabels() {
-  if (dkkToEur) {
-    document.getElementById('label-from').textContent = 'DKK';
-    document.getElementById('name-from').textContent = 'Dänische Krone';
-    document.getElementById('label-to').textContent = 'EUR';
-    document.getElementById('name-to').textContent = 'Euro';
-    document.getElementById('rate-display').textContent = `1 DKK = ${fmt(liveRate)} €`;
-  } else {
-    document.getElementById('label-from').textContent = 'EUR';
-    document.getElementById('name-from').textContent = 'Euro';
-    document.getElementById('label-to').textContent = 'DKK';
-    document.getElementById('name-to').textContent = 'Dänische Krone';
-    document.getElementById('rate-display').textContent = `1 € = ${fmt(1/liveRate)} DKK`;
-  }
-  updateTips();
-}
+    const dkkNotes = [20, 50, 100, 200, 500, 1000];
+    const eurNotes = [5, 10, 20, 50, 100, 200];
 
-function updateTips() {
-  document.getElementById('tip-coffee').textContent = '~' + fmt(30 * liveRate) + ' €';
-  document.getElementById('tip-beer').textContent = '~' + fmt(40 * liveRate) + ' €';
-  document.getElementById('tip-smorrebrod').textContent = '~' + fmt(100 * liveRate) + ' €';
-  document.getElementById('tip-taxi').textContent = '~' + fmt(200 * liveRate) + ' €';
-}
-
-function setAmount(val) {
-  document.getElementById('input-from').value = val;
-  convert();
-}
-
-document.getElementById('swap-btn').addEventListener('click', () => {
-  dkkToEur = !dkkToEur;
-  document.getElementById('input-from').value = '';
-  document.getElementById('input-to').value = '';
-  updateLabels();
-});
-
-document.getElementById('input-from').addEventListener('input', convert);
-
-async function fetchRate() {
-  try {
-    const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/dkk.json');
-    const data = await res.json();
-    if (data && data.dkk && data.dkk.eur) {
-      liveRate = data.dkk.eur;
-      const now = new Date();
-      document.getElementById('rate-time').textContent = now.toLocaleTimeString('de-DE', {hour:'2-digit',minute:'2-digit'});
+    function format(value){
+        return value.toLocaleString("de-DE", {
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        });
     }
-  } catch(e) {}
-  updateLabels();
-  convert();
-}
 
-fetchRate();
+    function updateRateInfo(){
+        rateInfo.innerHTML = `
+            1 € = <strong>${format(RATE)} DKK</strong><br>
+            1 DKK = <strong>${format(1 / RATE)} €</strong>
+        `;
+    }
+
+    function calculate(){
+        let value = parseFloat(amountInput.value);
+
+        if(isNaN(value)){
+            result.innerHTML = "0,00";
+            return;
+        }
+
+        if(mode === "DKK_TO_EUR"){
+            let eur = value / RATE;
+            result.innerHTML = `${format(eur)} €`;
+        } else {
+            let dkk = value * RATE;
+            result.innerHTML = `${format(dkk)} DKK`;
+        }
+    }
+
+    function createNotes(){
+        notesContainer.innerHTML = "";
+
+        const notes = mode === "DKK_TO_EUR" ? dkkNotes : eurNotes;
+        const classes = ["n1","n2","n3","n4","n5","n6"];
+
+        notes.forEach((note,index)=>{
+            const div = document.createElement("div");
+            div.className = `note ${classes[index % classes.length]}`;
+            div.innerHTML = `${note} ${mode === "DKK_TO_EUR" ? "DKK" : "€"}`;
+
+            div.addEventListener("click", ()=>{
+                amountInput.value = note;
+                calculate();
+            });
+
+            notesContainer.appendChild(div);
+        });
+    }
+
+    dkkBtn.addEventListener("click", ()=>{
+        mode = "DKK_TO_EUR";
+        dkkBtn.classList.add("active");
+        eurBtn.classList.remove("active");
+        amountInput.placeholder = "DKK eingeben...";
+        amountInput.value = "";
+        result.innerHTML = "0,00 €";
+        createNotes();
+    });
+
+    eurBtn.addEventListener("click", ()=>{
+        mode = "EUR_TO_DKK";
+        eurBtn.classList.add("active");
+        dkkBtn.classList.remove("active");
+        amountInput.placeholder = "Euro eingeben...";
+        amountInput.value = "";
+        result.innerHTML = "0,00 DKK";
+        createNotes();
+    });
+
+    amountInput.addEventListener("input", calculate);
+
+    updateRateInfo();
+    createNotes();
 </script>
+
+</body>
+</html>
